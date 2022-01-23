@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public abstract class Message {
 
@@ -12,8 +13,11 @@ public abstract class Message {
     protected String contents;
 
     public Message(User sender) {
+        if (sender == null){
+            throw new IllegalArgumentException();
+        }
         this.date = LocalDate.now();
-        /* TODO */
+        this.sender = sender;
     }
 
     public LocalDate getDate() {
@@ -21,8 +25,7 @@ public abstract class Message {
     }
 
     public User getSender() {
-        /* TODO */
-        return null;
+        return sender;
     }
 
     public abstract String getContents();

@@ -9,46 +9,90 @@ public class ModeratedRoom implements MessageExchange {
     private int numVisibleLog;
 
     public ModeratedRoom(PremiumUser moderator) {
-        /* TODO */
+        users = new ArrayList<>();
+        banned = new ArrayList<>();
+        log = new ArrayList<>();
+        this.moderator = moderator;
+        numVisibleLog = Integer.MAX_VALUE;
+        users.add(moderator);
     }
 
     public ArrayList<Message> getLog(User requester) {
-        /* TODO */
-        return null;
+        String allowedContents;
+        if (requester == moderator){
+            for (int i = 0; i < numVisibleLog; i++){
+                allowedContents = allowedContents + log.get(i);
+            }
+            return allowedContents;
+        }
+        if (requester != moderator){
+            if (log.length() < numVisibleLog){
+                return log;
+            } else {
+
+                for (int i = 0; i < numVisibleLog; i++){
+                    allowedContents = allowedContents + log.get(i);
+                }
+                return allowedContents;
+            }
+        }
     }
 
     public boolean addUser(User u) {
-        /* TODO */
-        return false;
+        if (banned.contains(u)|| users.contains(u)){
+            return false;
+        } else {
+            users.add(u);
+            u.rooms++ ;
+            return true;
+        }
     }
 
     public boolean removeUser(User requester, User u) {
-        /* TODO */
-        return false;
+        if (u == moderator || !users.contains(u)){
+            return false;
+        } else {
+            users.remove(u);
+            u.rooms--;
+            return true;
+        }
     }
 
     public ArrayList<User> getUsers() {
-        /* TODO */
-        return null;
+        return users;
     }
 
     public boolean recordMessage(Message m) {
-        /* TODO */
-        return false;
+        log.add(m);
+        return true;
     }
 
     public boolean banUser(User requester, User u) {
-        /* TODO */
-        return false;
+        if (requester != moderator || u == moderator){
+            return false;
+        } else {
+            users.remove(u);
+            banned.add(u);
+            u.rooms--;
+            return true;
+        }
     }
 
     public boolean unbanUser(User requester, User u) {
-        /* TODO */
-        return false;
+        if (requester != moderator){
+            return false;
+        } else {
+            banned.remove(u);
+            return true;
+        }
     }
 
     public boolean setNumVisibleLog(User requester, int newNum) {
-        /* TODO */
-        return false;
+        if (requester != moderator) {
+            return false;
+        } else {
+            numVisibleLog = newNum;
+            return true;
+        }
     }
 }

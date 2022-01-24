@@ -20,8 +20,8 @@ public class ChatRoom implements MessageExchange {
             return false;
         } else {
             users.add(u);
+            u.rooms.add(this);
             return true;
-            /* number of rooms */
         }
     }
 
@@ -30,6 +30,7 @@ public class ChatRoom implements MessageExchange {
             return false;
         } else {
             users.remove(u);
+            u.rooms.remove(this);
             return true;
         }
     }

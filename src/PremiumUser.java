@@ -33,26 +33,29 @@ public class PremiumUser extends User {
         if (users == null){
             throw new IllegalArgumentException();
         }
-        /* come back bro */
-        return null;
+        ModeratedRoom newRoom = new ModeratedRoom(username);
+        return newRoom;
     }
 
     public boolean banUser(ModeratedRoom room, User u) {
-        if (room == null|| newNum < 10){
+        if (room == null|| ModeratedRoom.newNum < 10){
             throw new IllegalArgumentException();
         }
-        /* come back bro */
-        return false;
+        room.banUser(u);
+        return true;
     }
 
     public boolean unbanUser(ModeratedRoom room, User u) {
-        /* come back */
-        return false;
+        if (room == null|| u == null){
+            return false;
+        }
+        room.unbanUser(u);
+        return true;
     }
 
     public boolean setNumVisibleLog(ModeratedRoom room, int newNum) {
-        /* come back */
-        return false;
+        room.setNumVisibleLog(newNum);
+        return true;
     }
 
 }

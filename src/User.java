@@ -32,21 +32,19 @@ public abstract class User {
     }
 
     public void joinRoom(MessageExchange me) throws OperationDeniedException {
-        if (Arrays.asList(rooms).contains(me)||me.addUser() == false){
-            throw new OperationDeniedException(JOIN_ROOM_FAILED);
-        }
         if (me == null){
             throw new IllegalArgumentException();
         }
-        me.addUser();
+        if (Arrays.asList(rooms).contains(me)||me.addUser(this) == false){
+            throw new OperationDeniedException(JOIN_ROOM_FAILED);
+        }
     }
 
     public void quitRoom(MessageExchange me) {
         if (me == null){
             throw new IllegalArgumentException();
         }
-        me.removeUser();
-        rooms.remove(me);
+        me.removeUser(this,this);
     }
 
     public MessageExchange createChatRoom(ArrayList<User> users) {

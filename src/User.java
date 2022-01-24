@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class User {
 
@@ -14,33 +15,73 @@ public abstract class User {
     protected ArrayList<MessageExchange> rooms;
 
     public User(String username, String bio) {
-        /* TODO */
+        if (username == null|| bio == null){
+            throw new IllegalArgumentException();
+        }
+        this.username = username;
+        this.bio = bio;
+        ArrayList rooms = new ArrayList();
     }
 
     public void setBio(String newBio) {
-        /* TODO */
+        bio = newBio;
     }
 
     public String displayBio() {
-        /* TODO */
-        return null;
+        return bio;
     }
 
     public void joinRoom(MessageExchange me) throws OperationDeniedException {
-        /* TODO */
+        if (Arrays.asList(rooms).contains(me)||me.addUser() == false){
+            throw new OperationDeniedException(JOIN_ROOM_FAILED);
+        }
+        if (me == null){
+            throw new IllegalArgumentException();
+        }
+        me.addUser();
     }
 
     public void quitRoom(MessageExchange me) {
-        /* TODO */
+        if (me == null){
+            throw new IllegalArgumentException();
+        }
+        me.removeUser();
+        rooms.remove(me);
     }
 
     public MessageExchange createChatRoom(ArrayList<User> users) {
-        /* TODO */
-        return null;
+        if (users == null){
+            throw new IllegalArgumentException();
+        }
+        ChatRoom newRoom = new ChatRoom();
+        rooms.add(newRoom);
+        for (int i = 0; i < users.size(); i++){
+            try{
+                newRoom.joinRoom(users.get(i));
+            } catch (OperationDeniedException e){
+                System.out.println(e.getMessage());
+                continue;
+            }
+        }
+        return newRoom;
     }
 
     public void sendMessage(MessageExchange me, MessageType msgType, String contents) {
-        /* TODO */
+        /*record message instance in msgExchange*/
+        if (me == null|| msgType == null|| contents == null){
+            throw new IllegalArgumentException();
+        }
+        if (msgType != MessageType.TEXT|| msgType != MessageType.PHOTO){
+            throw new IllegalArgumentException();
+        }
+        if (!user.join(me)){
+            throw new IllegalArgumentException();
+        }
+        try{
+
+        } catch {
+
+        }
     }
 
     public abstract String fetchMessage(MessageExchange me);

@@ -8,11 +8,12 @@ public class PhotoMessage extends Message {
 
     /* instance variable */
     private String extension;
-    private String[] acceptedTypes = ["jpg","jpeg","gif","png","tif","tiff","raw"];
+    private String[] acceptedTypes = new String[]{"jpg","jpeg","gif","png","tif","tiff","raw"};
 
     public PhotoMessage(User sender, String photoSource)
                         throws OperationDeniedException {
-        if (sender != instanceOf(PremiumUser)){
+        super(sender);
+        if (!(sender instanceof PremiumUser)){
             throw new OperationDeniedException(DENIED_USER_GROUP);
         }
         if (Arrays.asList(acceptedTypes).contains(extension) == false){
@@ -21,9 +22,8 @@ public class PhotoMessage extends Message {
         if (sender == null || photoSource == null){
             throw new IllegalArgumentException();
         }
-        super(sender);
         contents = photoSource;
-        extension =
+        extension = photoSource.split(".")[-1];
     }
 
     public String getContents() {

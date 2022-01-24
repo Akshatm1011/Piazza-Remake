@@ -6,13 +6,13 @@ public class TextMessage extends Message {
 
     public TextMessage(User sender, String text)
             throws OperationDeniedException {
+        super(sender);
         if (text.length() > 500){
             throw new OperationDeniedException("EXCEED_MAX_LENGTH");
         }
         if (text == null || sender == null){
             throw new IllegalArgumentException();
         }
-        super(sender);
         contents = text;
     }
 
@@ -20,5 +20,4 @@ public class TextMessage extends Message {
         return this.getSender().displayName() + " [" + this.getDate().toString()
                 + "]: " + contents;
     }
-
 }

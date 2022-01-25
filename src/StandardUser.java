@@ -12,7 +12,7 @@ public class StandardUser extends User {
     }
 
     public String fetchMessage(MessageExchange me) {
-        if (me == null|| !me.contains(username)){
+        if (me == null|| !me.getUsers().contains(username)){
             throw new IllegalArgumentException();
         }
         int amountOfLogs;
@@ -23,10 +23,10 @@ public class StandardUser extends User {
         }
         String finalMessage = "";
         for (int i = 0; i < amountOfLogs; i++){
-            if (me.getLog(this).size() != TextMessage.TEXT) {
+            if (!(me.getLog(this).get(i) instanceof TextMessage)) {
                 finalMessage = finalMessage + FETCH_DENIED_MSG;
             } else {
-                finalMessage = finalMessage + username.get(i).getLog(this);
+                finalMessage = finalMessage + me.getLog(this).get(i);
             }
         }
         return finalMessage;

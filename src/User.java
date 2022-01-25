@@ -66,7 +66,6 @@ public abstract class User {
 
     public void sendMessage(MessageExchange me, MessageType msgType, String contents) {
 
-        /*record message instance in msgExchange*/
         if (me == null|| msgType == null|| contents == null){
             throw new IllegalArgumentException();
         }
@@ -76,17 +75,19 @@ public abstract class User {
         if (!me.addUser(this)){
             throw new IllegalArgumentException();
         }
-        MessageType creation;
-        if (msgType == MessageType.TEXT){
-            creation = new MessageType.TEXT;
-        } else {
-            creation = new MessageType.PHOTO;
-        }
+        Message creation;
         try{
-
-        } catch {
-
+            if (msgType == MessageType.TEXT){
+                creation = new TextMessage(this,contents);
+                me.recordMessage(creation);
+            } else {
+                creation = new PhotoMessage(this, contents);
+                me.recordMessage(creation);
+            }
+        } catch (OperationDeniedException E){
+            System.out.println(E.getMessage());
         }
+
     }
 
     public abstract String fetchMessage(MessageExchange me);

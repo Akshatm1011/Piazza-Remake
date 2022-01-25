@@ -18,8 +18,8 @@ public class ModeratedRoom implements MessageExchange {
     }
 
     public ArrayList<Message> getLog(User requester) {
+        ArrayList allowedLogs = new ArrayList();
         if (requester == moderator){
-            ArrayList allowedLogs = new ArrayList();
             allowedLogs.add(log.subList(0,numVisibleLog));
 
             return allowedLogs;
@@ -33,6 +33,7 @@ public class ModeratedRoom implements MessageExchange {
                 return allowedLogs;
             }
         }
+        return allowedLogs;
     }
 
     public boolean addUser(User u) {

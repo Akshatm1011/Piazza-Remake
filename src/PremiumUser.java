@@ -14,7 +14,7 @@ public class PremiumUser extends User {
         if (me == null || !me.contains(username)){
             throw new IllegalArgumentException();
         }
-        String finalMessage;
+        String finalMessage = "";
         for (int i = 0; i < me.getLog(this).size(); i++){
             finalMessage = finalMessage + me.getContents();
         }
@@ -33,7 +33,7 @@ public class PremiumUser extends User {
         if (users == null){
             throw new IllegalArgumentException();
         }
-        ModeratedRoom newRoom = new ModeratedRoom();
+        ModeratedRoom newRoom = new ModeratedRoom(this);
         return newRoom;
     }
 

@@ -77,7 +77,7 @@ public abstract class User {
             throw new IllegalArgumentException();
         }
         MessageType creation;
-        if (msgType == TEXT){
+        if (msgType == MessageType.TEXT){
             creation = new MessageType.TEXT;
         } else {
             creation = new MessageType.PHOTO;

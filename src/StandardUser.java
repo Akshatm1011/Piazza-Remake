@@ -21,7 +21,7 @@ public class StandardUser extends User {
         } else {
             amountOfLogs = 100;
         }
-        String finalMessage;
+        String finalMessage = "";
         for (int i = 0; i < amountOfLogs; i++){
             if (me.getLog(this).size() != TextMessage.TEXT) {
                 finalMessage = finalMessage + FETCH_DENIED_MSG;

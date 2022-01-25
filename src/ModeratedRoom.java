@@ -18,22 +18,19 @@ public class ModeratedRoom implements MessageExchange {
     }
 
     public ArrayList<Message> getLog(User requester) {
-        String allowedContents = "";
         if (requester == moderator){
-            for (int i = 0; i < numVisibleLog; i++){
-                allowedContents = allowedContents + log.get(i);
-            }
-            return allowedContents;
+            ArrayList allowedLogs = new ArrayList();
+            allowedLogs.add(log.subList(0,numVisibleLog));
+
+            return allowedLogs;
         }
         if (requester != moderator){
             if (log.size() < numVisibleLog){
+                allowedLogs = log;
                 return log;
             } else {
-
-                for (int i = 0; i < numVisibleLog; i++){
-                    allowedContents = allowedContents + log.get(i);
-                }
-                return allowedContents;
+                allowedLogs.add(log.subList(0,numVisibleLog));
+                return allowedLogs;
             }
         }
     }

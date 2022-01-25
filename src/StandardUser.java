@@ -12,21 +12,21 @@ public class StandardUser extends User {
     }
 
     public String fetchMessage(MessageExchange me) {
-        if (me == null|| !user.contains(me)){
+        if (me == null|| !me.contains(username)){
             throw new IllegalArgumentException();
         }
         int amountOfLogs;
-        if (me.getContents().length() < 100){
-            amountOfLogs = me.getContents().length();
+        if (me.getLog(this).size() < 100){
+            amountOfLogs = me.getLog(this).size();
         } else {
             amountOfLogs = 100;
         }
         String finalMessage;
         for (int i = 0; i < amountOfLogs; i++){
-            if (me.getContents(i) != TextMessage) {
+            if (me.getLog(this).size() != TextMessage.TEXT) {
                 finalMessage = finalMessage + FETCH_DENIED_MSG;
             } else {
-                finalMessage = finalMessage + me.getContents(i);
+                finalMessage = finalMessage + username.get(i).getLog(this);
             }
         }
         return finalMessage;

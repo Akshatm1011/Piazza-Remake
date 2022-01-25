@@ -11,12 +11,12 @@ public class PremiumUser extends User {
     }
 
     public String fetchMessage(MessageExchange me) {
-        if (input == null || !user.joinRoom(me)){
+        if (me == null || !me.contains(username)){
             throw new IllegalArgumentException();
         }
         String finalMessage;
-        for (int i = 0; i < me.getMessage(); i++){
-            finalMessage = finalMessage + me.getContents(i);
+        for (int i = 0; i < me.getLog(this).size(); i++){
+            finalMessage = finalMessage + me.getContents();
         }
         return finalMessage;
     }
@@ -33,7 +33,7 @@ public class PremiumUser extends User {
         if (users == null){
             throw new IllegalArgumentException();
         }
-        ModeratedRoom newRoom = new ModeratedRoom(username);
+        ModeratedRoom newRoom = new ModeratedRoom();
         return newRoom;
     }
 
@@ -41,7 +41,7 @@ public class PremiumUser extends User {
         if (room == null|| ModeratedRoom.newNum < 10){
             throw new IllegalArgumentException();
         }
-        room.banUser(u);
+        room.banUser(this,this);
         return true;
     }
 
@@ -49,12 +49,12 @@ public class PremiumUser extends User {
         if (room == null|| u == null){
             return false;
         }
-        room.unbanUser(u);
+        room.unbanUser(this,this);
         return true;
     }
 
     public boolean setNumVisibleLog(ModeratedRoom room, int newNum) {
-        room.setNumVisibleLog(newNum);
+        room.setNumVisibleLog(this, newNum);
         return true;
     }
 

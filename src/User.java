@@ -55,7 +55,7 @@ public abstract class User {
         rooms.add(newRoom);
         for (int i = 0; i < users.size(); i++){
             try{
-                newRoom.joinRoom(users.get(i));
+                users.get(i).joinRoom(newRoom);
             } catch (OperationDeniedException e){
                 System.out.println(e.getMessage());
                 continue;
@@ -65,6 +65,7 @@ public abstract class User {
     }
 
     public void sendMessage(MessageExchange me, MessageType msgType, String contents) {
+
         /*record message instance in msgExchange*/
         if (me == null|| msgType == null|| contents == null){
             throw new IllegalArgumentException();
@@ -72,8 +73,14 @@ public abstract class User {
         if (msgType != MessageType.TEXT|| msgType != MessageType.PHOTO){
             throw new IllegalArgumentException();
         }
-        if (!user.join(me)){
+        if (!me.addUser(this)){
             throw new IllegalArgumentException();
+        }
+        MessageType creation;
+        if (msgType == TEXT){
+            creation = new MessageType.TEXT;
+        } else {
+            creation = new MessageType.PHOTO;
         }
         try{
 

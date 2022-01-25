@@ -18,7 +18,7 @@ public class ModeratedRoom implements MessageExchange {
     }
 
     public ArrayList<Message> getLog(User requester) {
-        String allowedContents;
+        String allowedContents = "";
         if (requester == moderator){
             for (int i = 0; i < numVisibleLog; i++){
                 allowedContents = allowedContents + log.get(i);
@@ -26,7 +26,7 @@ public class ModeratedRoom implements MessageExchange {
             return allowedContents;
         }
         if (requester != moderator){
-            if (log.length() < numVisibleLog){
+            if (log.size() < numVisibleLog){
                 return log;
             } else {
 
@@ -43,7 +43,7 @@ public class ModeratedRoom implements MessageExchange {
             return false;
         } else {
             users.add(u);
-            u.rooms++ ;
+            u.rooms.add(this);
             return true;
         }
     }
@@ -53,7 +53,7 @@ public class ModeratedRoom implements MessageExchange {
             return false;
         } else {
             users.remove(u);
-            u.rooms--;
+            u.rooms.remove(this);
             return true;
         }
     }
@@ -73,7 +73,7 @@ public class ModeratedRoom implements MessageExchange {
         } else {
             users.remove(u);
             banned.add(u);
-            u.rooms--;
+            u.rooms.add(this);
             return true;
         }
     }

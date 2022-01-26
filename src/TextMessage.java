@@ -13,11 +13,11 @@ public class TextMessage extends Message {
         if (text == null || sender == null){
             throw new IllegalArgumentException();
         }
-        contents = text;
+        this.contents = text;
     }
 
     public String getContents() {
         return this.getSender().displayName() + " [" + this.getDate().toString()
-                + "]: " + contents;
+                + "]: " + this.contents;
     }
 }

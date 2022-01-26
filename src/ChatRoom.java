@@ -7,40 +7,40 @@ public class ChatRoom implements MessageExchange {
     private ArrayList<Message> log;
 
     public ChatRoom() {
-        users = new ArrayList<>();
-        log = new ArrayList<>();
+        this.users = new ArrayList<>();
+        this.log = new ArrayList<>();
     }
 
     public ArrayList<Message> getLog(User requester) {
-        return log;
+        return this.log;
     }
 
     public boolean addUser(User u) {
-        if (users.contains(u)){
+        if (this.users.contains(u)){
             return false;
         } else {
-            users.add(u);
+            this.users.add(u);
             u.rooms.add(this);
             return true;
         }
     }
 
     public boolean removeUser(User requester, User u) {
-        if (!users.contains(u)){
+        if (!this.users.contains(u)){
             return false;
         } else {
-            users.remove(u);
+            this.users.remove(u);
             u.rooms.remove(this);
             return true;
         }
     }
 
     public ArrayList<User> getUsers() {
-        return users;
+        return this.users;
     }
 
     public boolean recordMessage(Message m) {
-        log.add(m);
+        this.log.add(m);
         return true;
     }
 }

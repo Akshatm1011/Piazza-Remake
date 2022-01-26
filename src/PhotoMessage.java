@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Locale;
 
 public class PhotoMessage extends Message {
 
@@ -16,23 +17,23 @@ public class PhotoMessage extends Message {
         if (!(sender instanceof PremiumUser)){
             throw new OperationDeniedException(DENIED_USER_GROUP);
         }
-        if (Arrays.asList(acceptedTypes).contains(extension) == false){
+        if (Arrays.asList(this.acceptedTypes).contains(this.extension) == false){
             throw new OperationDeniedException(INVALID_INPUT);
         }
         if (sender == null || photoSource == null){
             throw new IllegalArgumentException();
         }
-        contents = photoSource;
-        extension = photoSource.split(".")[-1];
+        this.contents = photoSource;
+        this.extension = photoSource.split(".")[-1].toLowerCase();
     }
 
     public String getContents() {
         return this.getSender().displayName() + " [" + this.getDate().toString()
-                + "]: Picture at " + contents;
+                + "]: Picture at " + this.contents;
     }
 
     public String getExtension() {
-        return extension;
+        return this.extension;
     }
 
 }

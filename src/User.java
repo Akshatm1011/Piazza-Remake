@@ -27,18 +27,18 @@ public abstract class User {
         if (newBio == null){
             throw new IllegalArgumentException();
         }
-        bio = newBio;
+        this.bio = newBio;
     }
 
     public String displayBio() {
-        return bio;
+        return this.bio;
     }
 
     public void joinRoom(MessageExchange me) throws OperationDeniedException {
         if (me == null){
             throw new IllegalArgumentException();
         }
-        if (Arrays.asList(rooms).contains(me)||me.addUser(this) == false){
+        if (Arrays.asList(this.rooms).contains(me)||me.addUser(this) == false){
             throw new OperationDeniedException(JOIN_ROOM_FAILED);
         }
         me.addUser(this);
@@ -56,7 +56,7 @@ public abstract class User {
             throw new IllegalArgumentException();
         }
         ChatRoom newRoom = new ChatRoom();
-        rooms.add(newRoom);
+        this.rooms.add(newRoom);
         for (int i = 0; i < users.size(); i++){
             try{
                 users.get(i).joinRoom(newRoom);

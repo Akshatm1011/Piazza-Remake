@@ -21,11 +21,11 @@ public abstract class Message {
     }
 
     public LocalDate getDate() {
-        return date;
+        return this.date;
     }
 
     public User getSender() {
-        return sender;
+        return this.sender;
     }
 
     public abstract String getContents();

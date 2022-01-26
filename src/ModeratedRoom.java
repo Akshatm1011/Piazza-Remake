@@ -9,25 +9,25 @@ public class ModeratedRoom implements MessageExchange {
     private int numVisibleLog;
 
     public ModeratedRoom(PremiumUser moderator) {
-        users = new ArrayList<>();
-        banned = new ArrayList<>();
-        log = new ArrayList<>();
+        this.users = new ArrayList<>();
+        this.banned = new ArrayList<>();
+        this.log = new ArrayList<>();
         this.moderator = moderator;
-        numVisibleLog = Integer.MAX_VALUE;
-        users.add(moderator);
+        this.numVisibleLog = Integer.MAX_VALUE;
+        this.users.add(moderator);
     }
 
     public ArrayList<Message> getLog(User requester) {
         ArrayList allowedLogs = new ArrayList();
-        if (requester == moderator){
-            return log;
+        if (requester == this.moderator){
+            return this.log;
         }
-        if (requester != moderator){
-            if (log.size() < numVisibleLog){
-                allowedLogs = log;
-                return log;
+        if (requester != this.moderator){
+            if (this.log.size() < this.numVisibleLog){
+                allowedLogs = this.log;
+                return this.log;
             } else {
-                allowedLogs.add(log.subList(0,numVisibleLog));
+                allowedLogs.add(this.log.subList(0,this.numVisibleLog));
                 return allowedLogs;
             }
         }
@@ -35,31 +35,31 @@ public class ModeratedRoom implements MessageExchange {
     }
 
     public boolean addUser(User u) {
-        if (banned.contains(u)|| users.contains(u)){
+        if (this.banned.contains(u)|| this.users.contains(u)){
             return false;
         } else {
-            users.add(u);
+            this.users.add(u);
             u.rooms.add(this);
             return true;
         }
     }
 
     public boolean removeUser(User requester, User u) {
-        if (u == moderator || !users.contains(u)){
+        if (u == this.moderator || !this.users.contains(u)){
             return false;
         } else {
-            users.remove(u);
+            this.users.remove(u);
             u.rooms.remove(this);
             return true;
         }
     }
 
     public ArrayList<User> getUsers() {
-        return users;
+        return this.users;
     }
 
     public boolean recordMessage(Message m) {
-        log.add(m);
+        this.log.add(m);
         return true;
     }
 
@@ -67,8 +67,8 @@ public class ModeratedRoom implements MessageExchange {
         if (requester != moderator || u == moderator){
             return false;
         } else {
-            users.remove(u);
-            banned.add(u);
+            this.users.remove(u);
+            this.banned.add(u);
             u.rooms.add(this);
             return true;
         }
@@ -78,7 +78,7 @@ public class ModeratedRoom implements MessageExchange {
         if (requester != moderator){
             return false;
         } else {
-            banned.remove(u);
+            this.banned.remove(u);
             return true;
         }
     }
@@ -87,7 +87,7 @@ public class ModeratedRoom implements MessageExchange {
         if (requester != moderator) {
             return false;
         } else {
-            numVisibleLog = newNum;
+            this.numVisibleLog = newNum;
             return true;
         }
     }

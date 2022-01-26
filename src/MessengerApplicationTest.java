@@ -6,13 +6,14 @@
 import java.time.LocalDate;
 import java.util.Arrays;
 
+import com.sun.corba.se.spi.orb.Operation;
 import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
  * Messenger Application Test
- * @author TODO
- * @since  TODO
+ * @author Akshat Muir
+ * @since  01/25/2022
  */
 public class MessengerApplicationTest {
 
@@ -31,6 +32,9 @@ public class MessengerApplicationTest {
     MessageExchange room;
     ModeratedRoom moder;
     TextMessage texter;
+    StandardUser newUser;
+    ChatRoom chatty;
+    PhotoMessage sus;
     /*
       The date used in Message and its subclasses. You can directly
       call this in your test methods.
@@ -44,8 +48,15 @@ public class MessengerApplicationTest {
     public void setup() {
         marina = new PremiumUser("Marina", "Instructor");
         room = new ChatRoom();
-        StandardUser newUser = new StandardUser("shawn", "student");
+        newUser = new StandardUser("shawn", "student");
         moder = new ModeratedRoom(marina);
+        chatty = new ChatRoom();
+        try{
+            sus = new PhotoMessage(marina, "image.gif");
+        } catch (OperationDeniedException E){
+
+        }
+
         try{
             texter = new TextMessage(marina, "tester");
         } catch (OperationDeniedException E){
@@ -98,6 +109,47 @@ public class MessengerApplicationTest {
         moder.recordMessage(texter);
         moder.getLog(marina).get(0);
         System.out.println(moder.getLog(marina).toString());
+        assertEquals(moder.addUser(newUser), true);
+
+        /*
+        moder.removeUser(marina, newUser);
+        moder.getUsers();
+        moder.banUser(marina, newUser);
+        moder.unbanUser(marina, newUser);
+        moder.setNumVisibleLog(marina, 10);
+
+        chatty.getLog(newUser);
+        chatty.addUser(newUser);
+        chatty.removeUser(marina, newUser);
+        chatty.getUsers();
+        chatty.recordMessage(texter);
+
+        texter.getContents();
+
+        sus.getContents();
+        sus.getExtension();
+
+        newUser.fetchMessage(phi);
+        newUser.displayName();
+
+        marina.setNumVisibleLog();
+        marina.banUser();
+        marina.displayName();
+        marina.createModeratedRoom();
+        marina.fetchMessage(phi);
+        marina.setCustomTitle();
+        marina.unbanUser();
+        marina.quitRoom();
+        marina.sendMessage();
+        marina.setBio();
+
+        newUser.joinRoom();
+        newUser.createChatRoom();
+        newUser.quitRoom();
+        newUser.sendMessage();
+        newUser.setBio("Im new");
+
+         */
     }
 
     /*

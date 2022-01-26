@@ -20,9 +20,7 @@ public class ModeratedRoom implements MessageExchange {
     public ArrayList<Message> getLog(User requester) {
         ArrayList allowedLogs = new ArrayList();
         if (requester == moderator){
-            allowedLogs.add(log.subList(0,numVisibleLog));
-
-            return allowedLogs;
+            return log;
         }
         if (requester != moderator){
             if (log.size() < numVisibleLog){

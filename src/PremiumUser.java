@@ -7,7 +7,7 @@ public class PremiumUser extends User {
 
     public PremiumUser(String username, String bio) {
         super(username, bio);
-        this.customTitle = customTitle;
+        this.customTitle = "Premium";
     }
 
     public String fetchMessage(MessageExchange me) {
@@ -41,24 +41,20 @@ public class PremiumUser extends User {
         if (room == null){
             throw new IllegalArgumentException();
         }
-        room.banUser(this,this);
-        return true;
+        return room.banUser(this,this);
     }
 
     public boolean unbanUser(ModeratedRoom room, User u) {
         if (room == null|| u == null){
-            return false;
+            throw new IllegalArgumentException();
         }
-        room.unbanUser(this,this);
-        return true;
+        return room.unbanUser(this,this);
     }
 
     public boolean setNumVisibleLog(ModeratedRoom room, int newNum) {
         if (room == null|| newNum < 10){
             throw new IllegalArgumentException();
         }
-        room.setNumVisibleLog(this, newNum);
-        return true;
+        return room.setNumVisibleLog(this, newNum);
     }
-
 }

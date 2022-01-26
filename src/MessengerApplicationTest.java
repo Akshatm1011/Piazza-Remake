@@ -4,6 +4,8 @@
  */
 
 import java.time.LocalDate;
+import java.util.Arrays;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -27,7 +29,8 @@ public class MessengerApplicationTest {
      */
     PremiumUser marina;
     MessageExchange room;
-
+    ModeratedRoom moder;
+    TextMessage texter;
     /*
       The date used in Message and its subclasses. You can directly
       call this in your test methods.
@@ -41,6 +44,14 @@ public class MessengerApplicationTest {
     public void setup() {
         marina = new PremiumUser("Marina", "Instructor");
         room = new ChatRoom();
+        StandardUser newUser = new StandardUser("shawn", "student");
+        moder = new ModeratedRoom(marina);
+        try{
+            texter = new TextMessage(marina, "tester");
+        } catch (OperationDeniedException E){
+
+        }
+
     }
 
     /*
@@ -67,7 +78,8 @@ public class MessengerApplicationTest {
     /*
      * Assert message content without hardcoding the date
      */
-    @Test
+
+    /* @Test
     public void testTextMessageGetContents() {
         try {
             TextMessage tm = new TextMessage(marina, "A sample text message.");
@@ -78,6 +90,14 @@ public class MessengerApplicationTest {
         } catch (OperationDeniedException ode) {
             fail("ODE should not be thrown");
         }
+    }
+    */
+
+    @Test
+    public void tester(){
+        moder.recordMessage(texter);
+        moder.getLog(marina).get(0);
+        System.out.println(moder.getLog(marina).toString());
     }
 
     /*

@@ -24,6 +24,9 @@ public abstract class User {
     }
 
     public void setBio(String newBio) {
+        if (newBio == null){
+            throw new IllegalArgumentException();
+        }
         bio = newBio;
     }
 
@@ -38,6 +41,7 @@ public abstract class User {
         if (Arrays.asList(rooms).contains(me)||me.addUser(this) == false){
             throw new OperationDeniedException(JOIN_ROOM_FAILED);
         }
+        me.addUser(this);
     }
 
     public void quitRoom(MessageExchange me) {
@@ -87,7 +91,6 @@ public abstract class User {
         } catch (OperationDeniedException E){
             System.out.println(E.getMessage());
         }
-
     }
 
     public abstract String fetchMessage(MessageExchange me);

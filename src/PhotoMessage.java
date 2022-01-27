@@ -9,22 +9,26 @@ public class PhotoMessage extends Message {
 
     /* instance variable */
     private String extension;
-    private String[] acceptedTypes = new String[]{"jpg","jpeg","gif","png","tif","tiff","raw"};
+    private String[] acceptedTypes;
+    private String[] spliter;
+    private int index;
 
     public PhotoMessage(User sender, String photoSource)
                         throws OperationDeniedException {
         super(sender);
+        this.contents = photoSource;
+        this.spliter = photoSource.split("\\.");
+        this.extension = spliter[0].toLowerCase();
+        this.acceptedTypes = new String[]{"jpg","jpeg","gif","png","tif","tiff","raw"};
         if (!(sender instanceof PremiumUser)){
             throw new OperationDeniedException(DENIED_USER_GROUP);
         }
-        if (Arrays.asList(this.acceptedTypes).contains(this.extension) == false){
+        if (!(Arrays.asList(acceptedTypes).contains(extension))){
             throw new OperationDeniedException(INVALID_INPUT);
         }
         if (sender == null || photoSource == null){
             throw new IllegalArgumentException();
         }
-        this.contents = photoSource;
-        this.extension = photoSource.split(".")[-1].toLowerCase();
     }
 
     public String getContents() {

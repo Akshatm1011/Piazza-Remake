@@ -105,55 +105,51 @@ public class MessengerApplicationTest {
     */
 
     @Test
-    public void tester(){
+    public void moderRoom() {
         moder.recordMessage(texter);
         moder.getLog(marina).get(0);
         System.out.println(moder.getLog(marina).toString());
         assertEquals(moder.addUser(newUser), true);
-
-        /*
         moder.removeUser(marina, newUser);
         moder.getUsers();
         moder.banUser(marina, newUser);
         moder.unbanUser(marina, newUser);
         moder.setNumVisibleLog(marina, 10);
-
+    }
+    @Test
+    public void chattyRoom(){
         chatty.getLog(newUser);
         chatty.addUser(newUser);
         chatty.removeUser(marina, newUser);
         chatty.getUsers();
         chatty.recordMessage(texter);
-
-        texter.getContents();
-
-        sus.getContents();
-        sus.getExtension();
-
-        newUser.fetchMessage(phi);
-        newUser.displayName();
-
-        marina.setNumVisibleLog();
-        marina.banUser();
-        marina.displayName();
-        marina.createModeratedRoom();
-        marina.fetchMessage(phi);
-        marina.setCustomTitle();
-        marina.unbanUser();
-        marina.quitRoom();
-        marina.sendMessage();
-        marina.setBio();
-
-        newUser.joinRoom();
-        newUser.createChatRoom();
-        newUser.quitRoom();
-        newUser.sendMessage();
-        newUser.setBio("Im new");
-
-         */
     }
 
-    /*
-      TODO: Add your tests
-     */
+    @Test
+    public void standardTester(){
+        newUser.displayName();
+    }
+    @Test
+    public void premiumTester(){
+        marina.displayName();
+        marina.setCustomTitle("newTitle");
+        marina.banUser(moder, newUser);
+        marina.unbanUser(moder, newUser);
+        marina.quitRoom(moder);
+        marina.setBio("Bruh");
+        marina.setNumVisibleLog(moder, 10);
+        marina.createModeratedRoom(moder.getUsers());
+    }
+
+    @Test
+    public void textMessager(){
+        texter.getContents();
+    }
+
+    @Test
+    public void photoMessager(){
+        sus.getContents();
+        sus.getExtension();
+    }
 
 }

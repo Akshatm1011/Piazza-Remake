@@ -64,7 +64,7 @@ public class ModeratedRoom implements MessageExchange {
     }
 
     public boolean banUser(User requester, User u) {
-        if (requester != moderator || u == moderator){
+        if (requester != this.moderator || u == this.moderator){
             return false;
         } else {
             this.users.remove(u);
@@ -75,7 +75,7 @@ public class ModeratedRoom implements MessageExchange {
     }
 
     public boolean unbanUser(User requester, User u) {
-        if (requester != moderator){
+        if (requester != this.moderator){
             return false;
         } else {
             this.banned.remove(u);
@@ -84,7 +84,7 @@ public class ModeratedRoom implements MessageExchange {
     }
 
     public boolean setNumVisibleLog(User requester, int newNum) {
-        if (requester != moderator) {
+        if (requester != this.moderator) {
             return false;
         } else {
             this.numVisibleLog = newNum;

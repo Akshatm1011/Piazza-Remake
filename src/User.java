@@ -20,7 +20,7 @@ public abstract class User {
         }
         this.username = username;
         this.bio = bio;
-        ArrayList rooms = new ArrayList();
+        this.rooms = new ArrayList();
     }
 
     public void setBio(String newBio) {

@@ -15,7 +15,7 @@ public class PremiumUser extends User {
             throw new IllegalArgumentException();
         }
         String finalMessage = "";
-        for (int i = 1; i < me.getLog(this).size(); i--){
+        for (int i = -1; i < me.getLog(this).size(); i--){
             finalMessage = finalMessage + me.getLog(this).get(i);
         }
         return finalMessage;

@@ -22,7 +22,7 @@ public class StandardUser extends User {
             amountOfLogs = 100;
         }
         String finalMessage = "";
-        for (int i = 1; i < amountOfLogs; i--){
+        for (int i = -1; i < amountOfLogs; i--){
             if (!(me.getLog(this).get(i) instanceof TextMessage)) {
                 finalMessage = finalMessage + FETCH_DENIED_MSG;
             } else {
